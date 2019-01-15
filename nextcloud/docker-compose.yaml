@@ -1,0 +1,53 @@
+version: "3"
+
+services:
+    nextcloud-web:
+        container_name: nextcloud-web
+        image: nextcloud:13.0
+        volumes:
+            - nextcloud-web-data:/var/www/html
+        depends_on: 
+            - nextcloud-db
+        ports:
+            - "80:80"
+        environment:
+            MYSQL_DATABASE: nextcloud
+            MYSQL_USER    : nextcloud
+            MYSQL_PASSWORD: nextcloud
+            MYSQL_HOST    : nextcloud-db
+            NEXTCLOUD_TRUSTED_DOMAINS: "localhost"
+        networks:
+            nextcloud-net:
+                aliases:
+                    - nextcloud-web
+
+    nextcloud-db:
+        container_name: nextcloud-db
+        image: mysql:5.7
+        volumes:
+            - nextcloud-db-data:/var/lib/mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: 518cca14-c887-4387-8c53-ff0e988cb0cc
+            MYSQL_DATABASE     : nextcloud
+            MYSQL_USER         : nextcloud
+            MYSQL_PASSWORD     : nextcloud
+        networks:
+            nextcloud-net:
+                aliases:
+                    - nextcloud-db
+
+volumes:
+    nextcloud-db-data:
+        driver_opts:
+            type: none
+            device: /extern/docker-volumes/nextcloud-db
+            o: bind
+    nextcloud-web-data:
+        driver_opts:
+            type: none
+            device: /extern/docker-volumes/nextcloud-web
+            o: bind
+
+networks:
+    nextcloud-net:
