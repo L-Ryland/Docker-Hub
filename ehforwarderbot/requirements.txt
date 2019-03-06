@@ -1,2 +1,0 @@
-efb-telegram-master==2.0.0b18
-efb-wechat-slave==2.0.0a17
