@@ -2,14 +2,17 @@ version: "3"
 
 services:
   bot:
-    container_name: efb_bot
-    image: efb:1.0
+    container_name: efb_master
+    build: .
+    volumes:
+      - profiles:/root/.ehforwarderbot/profiles
     networks:
       - cfb
     depends_on:
       - cqhttp
 
   cqhttp:
+    container_name: efb_slave_qq
     image: "richardchien/cqhttp"
     networks:
       cfg:
