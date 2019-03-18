@@ -5,9 +5,9 @@ services:
     container_name: efb_master
     build: .
     volumes:
-      - profiles:/root/.ehforwarderbot/profiles
+      - ./profiles:/root/.ehforwarderbot/profiles
     networks:
-      - cfb
+      - efb
     depends_on:
       - cqhttp
 
@@ -15,7 +15,7 @@ services:
     container_name: efb_slave_qq
     image: "richardchien/cqhttp"
     networks:
-      cfg:
+      efb:
         aliases:
           - cq
     environment:
