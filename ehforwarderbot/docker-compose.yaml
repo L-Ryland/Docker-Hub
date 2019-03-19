@@ -4,6 +4,7 @@ services:
   bot:
     container_name: efb_master
     build: .
+    restart: on-failure
     volumes:
       - ./profiles:/root/.ehforwarderbot/profiles
     networks:
@@ -14,6 +15,7 @@ services:
   cqhttp:
     container_name: efb_slave_qq
     image: "richardchien/cqhttp"
+    restart: always
     networks:
       efb:
         aliases:
