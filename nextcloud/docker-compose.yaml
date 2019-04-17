@@ -9,7 +9,7 @@ services:
         depends_on: 
             - nextcloud-db
         ports:
-            - "80:80"
+            - "8081:80"
         environment:
             MYSQL_DATABASE: nextcloud
             MYSQL_USER    : nextcloud
@@ -28,7 +28,7 @@ services:
             - nextcloud-db-data:/var/lib/mysql
         restart: always
         environment:
-            MYSQL_RANDOM_ROOT_PASSWORD: yes
+            MYSQL_RANDOM_ROOT_PASSWORD: "yes"
             MYSQL_DATABASE:             nextcloud
             MYSQL_USER:                 nextcloud
             MYSQL_PASSWORD:             nextcloud
