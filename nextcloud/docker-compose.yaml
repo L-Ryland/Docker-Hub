@@ -28,10 +28,10 @@ services:
             - nextcloud-db-data:/var/lib/mysql
         restart: always
         environment:
-            MYSQL_ROOT_PASSWORD: 518cca14-c887-4387-8c53-ff0e988cb0cc
-            MYSQL_DATABASE     : nextcloud
-            MYSQL_USER         : nextcloud
-            MYSQL_PASSWORD     : nextcloud
+            MYSQL_RANDOM_ROOT_PASSWORD: yes
+            MYSQL_DATABASE:             nextcloud
+            MYSQL_USER:                 nextcloud
+            MYSQL_PASSWORD:             nextcloud
         networks:
             nextcloud-net:
                 aliases:
@@ -39,15 +39,6 @@ services:
 
 volumes:
     nextcloud-db-data:
-        driver_opts:
-            type: none
-            device: /extern/docker-volumes/nextcloud-db
-            o: bind
     nextcloud-web-data:
-        driver_opts:
-            type: none
-            device: /extern/docker-volumes/nextcloud-web
-            o: bind
-
 networks:
     nextcloud-net:
