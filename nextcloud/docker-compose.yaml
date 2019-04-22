@@ -3,7 +3,7 @@ version: "3"
 services:
     nextcloud-web:
         container_name: nextcloud-web
-        image: nextcloud:13.0
+        image: nextcloud:15.0
         volumes:
             - nextcloud-web-data:/var/www/html
         depends_on: 
