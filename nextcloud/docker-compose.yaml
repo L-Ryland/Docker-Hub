@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+  db:
+    image: mariadb
+    container_name: nextcloud-db
+    command: --transaction-isolation=READ-COMMITTED -binlog-format=ROW
+    restart: always
+    volumes:
+      - nextcloud-db:/var/lib/mysql
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWAORD: "yes"
+    env_file:
+      - db.env
+
+  redis:
+    image: redis
+    container_name: nextcloud-redis
+    restart: always
+
+  nextcloud:
+    build: ./app
+    container_name: nextcloud-app
+    restart: always
+    ports:
+      - "8081:80"
+    volumes:
+      - nextcloud:/var/www/html
+    environment:
+      - MYSQL_HOST: db
+    env_file:
+      - db.env
+    depends_on:
+      - db
+      - redis
+
+  cron:
+    build: ./app
+    restart: always
+    volumes:
+      - nextcloud:/var/www/html
+    entrypoint: /cron.sh
+    depends_on:
+      - db
+      - redis
+
+volumes:
+  db:
+  nextcloud:
+
+
