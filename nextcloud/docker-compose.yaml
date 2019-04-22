@@ -9,14 +9,22 @@ services:
     volumes:
       - nextcloud-db:/var/lib/mysql
     environment:
-      - MYSQL_RANDOM_ROOT_PASSWAORD=yes
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
     env_file:
       - db.env
+    networks:
+      nextcloud:
+        aliases:
+          - mariadb
 
   redis:
     image: redis
     container_name: nextcloud-redis
     restart: always
+    networks:
+      nextcloud:
+        aliases:
+          - redis
 
   nextcloud:
     build: ./app
@@ -27,15 +35,18 @@ services:
     volumes:
       - nextcloud-app:/var/www/html
     environment:
-      - MYSQL_HOST=db
+      - MYSQL_HOST=mariadb
     env_file:
       - db.env
     depends_on:
       - db
       - redis
+    networks:
+      - nextcloud
 
   cron:
     build: ./app
+    container_name: nextcloud-cron
     restart: always
     volumes:
       - nextcloud-app:/var/www/html
@@ -43,9 +54,13 @@ services:
     depends_on:
       - db
       - redis
+    networks:
+      - nextcloud
 
 volumes:
   nextcloud-db:
   nextcloud-app:
 
 
+networks:
+  nextcloud:
