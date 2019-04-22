@@ -9,7 +9,7 @@ services:
     volumes:
       - nextcloud-db:/var/lib/mysql
     environment:
-      - MYSQL_RANDOM_ROOT_PASSWAORD: "yes"
+      - MYSQL_RANDOM_ROOT_PASSWAORD=yes
     env_file:
       - db.env
 
@@ -27,7 +27,7 @@ services:
     volumes:
       - nextcloud:/var/www/html
     environment:
-      - MYSQL_HOST: db
+      - MYSQL_HOST=db
     env_file:
       - db.env
     depends_on:
