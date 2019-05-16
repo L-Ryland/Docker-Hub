@@ -36,6 +36,7 @@ services:
       - nextcloud-app:/var/www/html
     environment:
       - MYSQL_HOST=mariadb
+      - REDIS_HOST=redis
     env_file:
       - db.env
     depends_on:
