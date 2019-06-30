@@ -12,10 +12,9 @@ services:
             - /path/to/filebrowser.db:/root/filebrowser.db
             - /path/to/aria2.conf:/root/conf/aria2.conf
         environment:
-            - ENABLE_AUTH: true
-            - RPC_SECRET: py9VK85T
-            - ARIA2_USER: aria2
-            - ARIA2_PWD: aria2
+            - ENABLE_AUTH="true"
+            - ARIA2_USER=aria2
+            - ARIA2_PWD=aria2
 
     resilio:
         container_name: resilio-sync
@@ -36,6 +35,6 @@ services:
         volumes:
             - /path/to/jupyter:/home/jovyan/work
         environment:
-            - JUPYTER_ENABLE_LAB: "yes"
+            - JUPYTER_ENABLE_LAB="yes"
 
 
