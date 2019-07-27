@@ -37,3 +37,17 @@ services:
         environment:
             - JUPYTER_ENABLE_LAB="yes"
 
+    adguard-home:
+        container_name: adguard-home
+        image: adguard/adguardhome
+        ports:
+            - "53:53"
+            - "67:67"
+            - "68:68"
+            - "853:853"
+            - "7005:80"
+            - "3000:3000"
+        volumes:
+            - /path/to/adguard-home/work:/opt/adguardhome/work
+            - /path/to/adguard-home/conf:/opt/adguardhome/conf
+
