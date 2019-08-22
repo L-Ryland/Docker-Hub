@@ -12,4 +12,4 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositorie
         && pip3 install --no-cache-dir -r requirements.txt -i https://pypi.douban.com/simple \
         && rm -rf ~/.cahche && apk del build
 
-CMD ["bash", "-c", "ehforwarderbot"]
+CMD ["ehforwarderbot"]
