@@ -10,7 +10,7 @@ services:
             - "8001:8000"
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
-            - /path/to/docker/portainer:/data
+            - /path/to/portainer:/data
 
     adguard-home:
         container_name: adguard-home
@@ -22,11 +22,11 @@ services:
             - "67:67/udp"
             - "68:68/tcp"
             - "68:68/udp"
+            - "853:853/tcp"
             - "7002:80/tcp"
-            - "8002:3000/tcp"
         volumes:
-            - /path/to/docker/adguard-home/work:/opt/adguardhome/work
-            - /path/to/docker/adguard-home/conf:/opt/adguardhome/conf
+            - /path/to/adguard-home/work:/opt/adguardhome/work
+            - ${PWD}/AdGuardHome:/opt/adguardhome/conf
 
     jupyter:
         container_name: jupyter-notebook
@@ -35,7 +35,7 @@ services:
         ports:
             - "7004:8888"
         volumes:
-            - /path/to/docker/jupyter:/home/jovyan/work
+            - /path/to/jupyter:/home/jovyan/work
             - ${PWD}/jupyter_notebook_config.py:/home/jovyan/.jupyter/jupyter_notebook_config.py
         environment:
             JUPYTER_ENABLE_LAB: "yes"

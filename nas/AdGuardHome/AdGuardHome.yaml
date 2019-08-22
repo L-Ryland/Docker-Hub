@@ -1,0 +1,93 @@
+bind_host: 0.0.0.0
+bind_port: 80
+auth_name: adguardhome
+auth_pass: adguardhome
+language: ""
+rlimit_nofile: 0
+dns:
+  bind_host: 0.0.0.0
+  port: 53
+  protection_enabled: true
+  filtering_enabled: true
+  blocking_mode: nxdomain
+  blocked_response_ttl: 10
+  querylog_enabled: true
+  ratelimit: 20
+  ratelimit_whitelist: []
+  refuse_any: true
+  bootstrap_dns:
+  - 1.1.1.1:53
+  - 1.0.0.1:53
+  all_servers: true
+  allowed_clients: []
+  disallowed_clients: []
+  blocked_hosts: []
+  parental_block_host: ""
+  safebrowsing_block_host: ""
+  blockedservices: []
+  parental_sensitivity: 13
+  parental_enabled: true
+  safesearch_enabled: true
+  safebrowsing_enabled: true
+  resolveraddress: ""
+  rewrites: []
+  upstream_dns:
+  - 1.1.1.1
+  - 8.8.8.8
+  - 114.114.114.114
+  - 61.139.2.69
+tls:
+  enabled: false
+  server_name: ""
+  force_https: false
+  port_https: 443
+  port_dns_over_tls: 853
+  certificate_chain: ""
+  private_key: ""
+filters:
+- enabled: true
+  url: https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt
+  name: AdGuard Simplified Domain Names filter
+  id: 1
+- enabled: true
+  url: https://easylist-downloads.adblockplus.org/easylistchina.txt
+  name: EasyList China
+  id: 1566475779
+- enabled: true
+  url: https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-annoyance.txt
+  name: CJX's Annoyance List
+  id: 1566475780
+- enabled: true
+  url: http://tools.yiclear.com/ChinaList2.0.txt
+  name: ChinaListV2.0[20190814001]
+  id: 1566475781
+- enabled: true
+  url: https://filters.adtidy.org/extension/chromium/filters/2.txt
+  name: AdGuard Base filter
+  id: 1566475783
+- enabled: true
+  url: https://filters.adtidy.org/extension/chromium/filters/15.txt
+  name: AdGuard Simplified domain names filter
+  id: 1566475784
+- enabled: true
+  url: https://filters.adtidy.org/extension/chromium/filters/3.txt
+  name: AdGuard Tracking Protection filter
+  id: 1566475785
+- enabled: true
+  url: https://filters.adtidy.org/extension/chromium/filters/14.txt
+  name: AdGuard Annoyances filter
+  id: 1566475786
+user_rules: []
+dhcp:
+  enabled: false
+  interface_name: ""
+  gateway_ip: ""
+  subnet_mask: ""
+  range_start: ""
+  range_end: ""
+  lease_duration: 86400
+  icmp_timeout_msec: 1000
+clients: []
+log_file: ""
+verbose: false
+schema_version: 4
