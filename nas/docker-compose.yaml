@@ -1,53 +1,14 @@
 version: '3'
 
 services:
-    aria2-with-ui:
-        container_name: AriaNg
-        image: wahyd4/aria2-ui
-        ports:
-            - "7000:80"
-            - "6800:6800"
-        volumes:
-            - /path/to/Downloads:/data
-            - /path/to/filebrowser.db:/root/filebrowser.db
-            - /path/to/aria2.conf:/root/conf/aria2.conf
-        environment:
-            - ENABLE_AUTH="true"
-            - ARIA2_USER=aria2
-            - ARIA2_PWD=aria2
-
-    resilio:
-        container_name: resilio-sync
-        image: resilio/sync
-        restart: unless-stopped
-        ports:
-            - "7001:8888"
-            - "5555:5555"
-        volumes:
-            - /path/to/resilio:/mnt/sync
-
     jupyter:
         container_name: jupyter-notebook
-        image: jupyter/datascience-notebook
+        image: jupyter/base-notebook
         restart: unless-stopped
         ports:
             - "7004:8888"
         volumes:
             - /path/to/jupyter:/home/jovyan/work
+            - ${PWD}/jupyter_notebook_config.py:/home/jovyan/.jupyter/jupyter_notebook_config.py
         environment:
-            - JUPYTER_ENABLE_LAB="yes"
-
-    adguard-home:
-        container_name: adguard-home
-        image: adguard/adguardhome
-        ports:
-            - "53:53"
-            - "67:67"
-            - "68:68"
-            - "853:853"
-            - "7005:80"
-            - "3000:3000"
-        volumes:
-            - /path/to/adguard-home/work:/opt/adguardhome/work
-            - /path/to/adguard-home/conf:/opt/adguardhome/conf
-
+            JUPYTER_ENABLE_LAB: "yes"
