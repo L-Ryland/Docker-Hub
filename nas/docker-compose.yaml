@@ -1,6 +1,33 @@
 version: '3'
 
 services:
+    portainer:
+        container_name: portainer
+        image: portainer/portainer
+        restart: unless-stopped
+        ports:
+            - "7001:9000"
+            - "8001:8000"
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - /path/to/docker/portainer:/data
+
+    adguard-home:
+        container_name: adguard-home
+        image: adguard/adguardhome
+        restart: unless-stopped
+        ports:
+            - "53:53/tcp"
+            - "53:53/udp"
+            - "67:67/udp"
+            - "68:68/tcp"
+            - "68:68/udp"
+            - "7002:80/tcp"
+            - "8002:3000/tcp"
+        volumes:
+            - /path/to/docker/adguard-home/work:/opt/adguardhome/work
+            - /path/to/docker/adguard-home/conf:/opt/adguardhome/conf
+
     jupyter:
         container_name: jupyter-notebook
         image: jupyter/base-notebook
@@ -8,7 +35,8 @@ services:
         ports:
             - "7004:8888"
         volumes:
-            - /path/to/jupyter:/home/jovyan/work
+            - /path/to/docker/jupyter:/home/jovyan/work
             - ${PWD}/jupyter_notebook_config.py:/home/jovyan/.jupyter/jupyter_notebook_config.py
         environment:
             JUPYTER_ENABLE_LAB: "yes"
+
