@@ -11,6 +11,11 @@ services:
         efb:
             aliases:
                 - bot
+    # if your VPS is in China, you need proxy!
+    # environment:
+        # - HTTP_PROXY=http://172.17.0.1:1087
+        # - HTTPS_PROXY=http://172.17.0.1:1087
+        # - NO_PROXY=cqhttp
     depends_on:
       - cqhttp
 
@@ -24,9 +29,9 @@ services:
           - cqhttp
     environment:
       - COOLQ_PORT=5700
-      - VNC_PASSWD=vastpeng
+      - VNC_PASSWD={{ your VNC password  }}
       - CQHTTP_POST_URL=http://bot:8000
-      - COOLQ_ACCOUNT=12345678
+      - COOLQ_ACCOUNT={{ your QQ number  }}
       - CQHTTP_ACCESS_TOKEN=ac0f790e1fb74ebcaf45da77a6f9de47
       - CQHTTP_POST_MESSAGE_FORMAT=array
       - FORCE_ENV=true
