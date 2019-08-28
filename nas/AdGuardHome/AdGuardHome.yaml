@@ -1,7 +1,7 @@
 bind_host: 0.0.0.0
 bind_port: 80
-auth_name: adguardhome
-auth_pass: adguardhome
+auth_name: vastpeng
+auth_pass: woaini00
 language: ""
 rlimit_nofile: 0
 dns:
