@@ -25,7 +25,6 @@ services:
             - "853:853/tcp"
             - "7002:80/tcp"
         volumes:
-            - /path/to/adguard-home/work:/opt/adguardhome/work
             - ${PWD}/AdGuardHome:/opt/adguardhome/conf
 
     jupyter:

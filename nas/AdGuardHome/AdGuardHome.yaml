@@ -24,7 +24,7 @@ dns:
   blocked_hosts: []
   parental_block_host: ""
   safebrowsing_block_host: ""
-  blockedservices: []
+  blocked_services: []
   parental_sensitivity: 13
   parental_enabled: true
   safesearch_enabled: true
@@ -36,6 +36,7 @@ dns:
   - 8.8.8.8
   - 114.114.114.114
   - 61.139.2.69
+  - 223.5.5.5
 tls:
   enabled: false
   server_name: ""
