@@ -12,6 +12,8 @@ EHForwarderBot 是一款基于 Telegram 的聊天隧道框架，可以实现通�
 
 ## 如何使用？
 
+视频教程：[EhforwarderBot - 打通 QQ，Wechat 和 Telegram 的利器](https://www.bilibili.com/video/av46777579)
+
 1. 通过 [BotFather](https://telegram.me/BotFather) 创建机器人，并获得 `Token`
 2. 通过 [get_id_bot](https://telegram.me/get_id_bot) 获得 Telegram 帐号 `ID`
 3. 将上述的 `Token` 和 `ID` 分别填写入 `profiles/blueset.telegram/config.yaml` 的 `Token` 和 `admins`
