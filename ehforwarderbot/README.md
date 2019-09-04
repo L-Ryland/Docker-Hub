@@ -14,11 +14,24 @@ EHForwarderBot 是一款基于 Telegram 的聊天隧道框架，可以实现通�
 
 视频教程：[EhforwarderBot - 打通 QQ，Wechat 和 Telegram 的利器](https://www.bilibili.com/video/av46777579)
 
-1. 通过 [BotFather](https://telegram.me/BotFather) 创建机器人，并获得 `Token`
+1. 通过 [BotFather](https://telegram.me/BotFather) 创建机器人，并获得 `Token`，并添加指令(注)。
 2. 通过 [get_id_bot](https://telegram.me/get_id_bot) 获得 Telegram 帐号 `ID`
 3. 将上述的 `Token` 和 `ID` 分别填写入 `profiles/blueset.telegram/config.yaml` 的 `Token` 和 `admins`
 4. 执行 `docker-compose up -d`，并通过 `docker logs -f efb_master` 获得微信登录二维码
 5. 扫描二维码，微信登录成功，即刻开始聊天
+
+```text
+需要添加的指令：
+
+help - Show commands list.
+link - Link a remote chat to a group.
+unlink_all - Unlink all remote chats from a group.
+info - Display information of the current Telegram chat.
+chat - Generate a chat head.
+extra - Access additional features from Slave Channels.
+update_info - Update the group name and profile picture.
+react - Send a reaction to a message, or show a list of reactors.
+```
 
 ## 如何收发 QQ 消息
 
