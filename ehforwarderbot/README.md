@@ -36,7 +36,7 @@ react - Send a reaction to a message, or show a list of reactors.
 ## 如何收发 QQ 消息
 
 1. 取消 `profile/config.yaml` 中的 `milkice.qq` 注释
-2. 修改 `docker-compose.yaml` 中的 `COOLQ_ACCOUNT` 为你自己的 QQ 帐号
+2. 分别修改 `docker-compose.yaml` 中的 `{{ your VNC password }}` `{{ COOLQ_ACCOUNT }}` 为你自己的 VNC 登录密码和 QQ 帐号
 3. 执行 `docker-compose start cqhttp`
 4. 访问 `{{ip}}:9801` 登录 QQ 帐号
 5. 执行 `docker-compose restart efb_master` 重启 `efb_master`
