@@ -48,3 +48,16 @@ services:
             - "55555:55555"
         volumes:
             - /path/to/btsync:/mnt/sync
+    
+    calibre-web;
+        container_name: calibre
+        image: technosoft2000/calibre-web
+        restart: unless-stopped
+        ports:
+            - "7006:8083"
+        volumes:
+            - /path/to/calibre/web:/calibre-web
+            - /path/to/calibre/books:/books
+        environment:
+            PGID: 65539
+            PUID: 1029
