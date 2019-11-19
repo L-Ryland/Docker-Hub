@@ -1,5 +1,5 @@
 FROM python:3.7-alpine
-MAINTAINER vastpeng <keatingsmitht@gmail.com>
+LABEL maintainer="keatingsmitht@gmail.com"
 
 ENV TZ Asia/Shanghai
 
