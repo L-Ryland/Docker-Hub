@@ -1,3 +1,8 @@
-token: "xxxxxxxxx"
+token: "xxxxxx"
 admins:
-  - xxxxxxxx 
+  - xxxxxx
+
+flags:
+  network_error_prompt_interval: 10
+  your_message_on_slave: "mute"
+

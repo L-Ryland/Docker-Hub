@@ -1,4 +1,4 @@
-ehforwarderbot
-efb-telegram-master
-efb-qq-slave
-efb-wechat-slave
+ehforwarderbot==2.0.0b21
+efb-telegram-master==2.0.0b28
+efb-wechat-slave==2.0.0a31
+efb-qq-slave==2.0.0a12

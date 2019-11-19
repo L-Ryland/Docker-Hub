@@ -21,7 +21,7 @@ services:
 
   cqhttp:
     container_name: efb_slave_qq
-    image: "richardchien/cqhttp"
+    image: richardchien/cqhttp:latest
     restart: unless-stopped
     networks:
       efb:
