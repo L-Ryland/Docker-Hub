@@ -3,6 +3,8 @@ admins:
   - xxxxxx
 
 flags:
-  network_error_prompt_interval: 10
+  network_error_prompt_interval: 0
   your_message_on_slave: "mute"
+  animated_sticker: true
+  send_to_last_chat: enabled
 
