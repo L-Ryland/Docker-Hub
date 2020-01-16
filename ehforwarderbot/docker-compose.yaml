@@ -11,11 +11,6 @@ services:
         efb:
             aliases:
                 - bot
-    # if your VPS is in China, you need proxy!
-    # environment:
-        # - HTTP_PROXY=http://172.17.0.1:1087
-        # - HTTPS_PROXY=http://172.17.0.1:1087
-        # - NO_PROXY=cqhttp
     depends_on:
       - cqhttp
 

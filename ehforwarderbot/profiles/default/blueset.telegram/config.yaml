@@ -8,3 +8,8 @@ flags:
   animated_sticker: true
   send_to_last_chat: enabled
 
+# request_kwargs:
+  # proxy_url: http://PROXY_HOST:PROXY_PORT
+  # optioal
+  # username: PROXY_USER
+  # password: PROXY_PASS
