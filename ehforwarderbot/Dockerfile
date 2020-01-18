@@ -3,12 +3,11 @@ LABEL maintainer="me@tinyrat.me"
 
 ENV TZ "Asia/Shanghai"
 
-WORKDIR /opt/app
-COPY requirements.txt /opt/app
+COPY requirements.txt .
 
-RUN apk --no-cache --virtual build add build-base libffi-dev openssl-dev \
-    && apk  --no-cache add jpeg-dev zlib-dev libwebp-dev libmagic ffmpeg cairo-dev py3-cairo \
-    && pip3 install --no-cache-dir -r requirements.txt \
-    && rm -rf ~/.cahche && apk del build
+RUN apk add --no-cache build-base git ffmpeg libmagic libwebp-dev zlib-dev jpeg-dev libjpeg-turbo libffi-dev openssl-dev \
+    && pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir -r requirements.txt \
+    && pip install git+https://github.com/milkice233/efb-qq-slave.git \
+    && rm -rf ~/.cache
 
 CMD ["ehforwarderbot"]
