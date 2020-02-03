@@ -48,8 +48,6 @@ services:
         container_name: postgresql
         restart: unless-stopped
         image: postgres:9.6.2
-        ports:
-            - "5432:5432"
         volumes: 
             - ./Volumes/postgresql:/var/lib/postgresql/data
             - ./pg-init-script.sh:/docker-entrypoint-initdb.d/pg-init-script.sh
