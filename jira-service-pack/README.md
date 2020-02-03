@@ -1,18 +1,17 @@
 ## 如何使用
 
-1. 修改 `env` 下的 postgresql 配置
-2. 修改 `docker-compose.yaml` 中 `postgresql` 中的数据库名字
+修改 `create_database.sql` 中相关的用户名与密码。
 
 运行命令：
 
 ```bash
-PG_USER=root PG_PASSWORD=123456 docker-compose up -d
+DB_USER={XXX} DB_PASSWORD={XXX} docker-compose up -d
 ```
 
-各服务进入方法：
+各服务端口：
 
-* jira-software: http://localhost:8080
-* confluence: http://localhost:8090
+* jira-software: 80
+* confluence: 8090
 
 ## 注意事项
 

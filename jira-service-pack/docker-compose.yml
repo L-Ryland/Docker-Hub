@@ -3,64 +3,67 @@ version: '3'
 services: 
     jira-software:
         container_name: jira-core
-        image: atlassian/jira-software:8.4.0
         restart: unless-stopped
-        env_file:
-            - ./env/jira.env
+        image: atlassian/jira-software:8.4.0
+        environment: 
+            - ATL_DB_DRIVER=com.mysql.jdbc.Driver
+            - ATL_DB_TYPE=mysql
+            - ATL_JDBC_URL=jdbc:mysql://mysql:3306/jira?useSSL=false
+            - ATL_JDBC_USER=${DB_USER}
+            - ATL_JDBC_PASSWORD=${DB_PASSWORD}
+
         volumes:
             - ./Volumes/jira-software:/var/atlassian/application-data/jira
+            - ./mysql-connector-java-5.1.48.jar:/opt/atlassian/jira/lib/mysql-connector-java-5.1.48.jar
         ports: 
             - "80:8080"
-        network_mode: host
+        networks: 
+            jira-bundle:
+                aliases: 
+                    - jira-software
         depends_on: 
-            - postgresql
+            - mysql
             - confluence
-            # - bitbucket
     
     confluence:
         container_name: confluence-server
+        restart: unless-stopped
         image: atlassian/confluence-server:6.6.3-alpine-adoptopenjdk8
-        env_file: 
-
-            - ./env/confluence.env
+        environment: 
+            - ATL_DB_TYPE=mysql
+            - ATL_JDBC_URL=jdbc:mysql://mysql:3306/confluence?useSSL=false
+            - ATL_JDBC_USER=${DB_USER}
+            - ATL_JDBC_PASSWORD=${DB_PASSWORD}
         volumes: 
             - ./Volumes/confluence-server:/var/atlassian/application-data/confluence
+            - ./mysql-connector-java-5.1.48.jar:/opt/confluence/jira/lib/mysql-connector-java-5.1.48.jar
         ports:
             - "8090:8090"
             - "8091:8091"
-        network_mode: host
+        networks:
+            jira-bundle:
+                aliases: 
+                    - confluence
         depends_on: 
-            - postgresql
-    
-    # bitbucket:
-    #     container_name: bitbucket-server
-    #     image: atlassian/bitbucket-server:5.16.11
-    #     volumes: 
-    #         - ./Volumes/bitbucket:/var/atlassian/application-data/bitbucket
-    #     env_file: 
-    #         - ./env/bitbucket.env
-    #     ports:
-    #         - "7990:7990"
-    #         - "7999:7999"
-    #     networks:
-    #         jira-bundle:
-    #             aliases: 
-    #                 - bitbucket
-    #     depends_on: 
-    #         - postgresql
+            - mysql
 
-    postgresql:
-        container_name: postgresql-multi
+    mysql:
+        container_name: mysql
         restart: unless-stopped
-        image: postgres:9.6.2
-        volumes:
-            - ../jira-service-pack:/docker-entrypoint-initdb.d
+        image: mysql:5.7
+        command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci 
         environment:
-            - POSTGRES_MULTIPLE_DATABASES=jira,confluence
-            - POSTGRES_USER=${PG_USER}
-            - POSTGRES_PASSWORD=${PG_PASSWORD}
+            - MYSQL_USER=root
+            - MYSQL_ALLOW_EMPTY_PASSWORD=yes
         ports:
-            - "5432:5432"
+            - "3306:3306"
         volumes: 
-            - ./Volumes/postgresql:/var/lib/postgresql/data
-        network_mode: host
+            - ./Volumes/mysql:/var/lib/mysql
+            - ./create_database.sql:/docker-entrypoint-initdb.d/create_database.sql
+        networks: 
+            jira-bundle:
+                aliases: 
+                    - mysql 
+
+networks:
+    jira-bundle:
