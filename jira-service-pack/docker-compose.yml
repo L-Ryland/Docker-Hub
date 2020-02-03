@@ -6,15 +6,13 @@ services:
         restart: unless-stopped
         image: atlassian/jira-software:8.4.0
         environment: 
-            - ATL_DB_DRIVER=com.mysql.jdbc.Driver
-            - ATL_DB_TYPE=mysql
-            - ATL_JDBC_URL=jdbc:mysql://mysql:3306/jira?useSSL=false
+            - ATL_DB_DRIVER=org.postgresql.Driver
+            - ATL_DB_TYPE=postgres72
+            - ATL_JDBC_URL=jdbc:postgresql://postgresql:5432/jira
             - ATL_JDBC_USER=${DB_USER}
             - ATL_JDBC_PASSWORD=${DB_PASSWORD}
-
         volumes:
             - ./Volumes/jira-software:/var/atlassian/application-data/jira
-            - ./mysql-connector-java-5.1.48.jar:/opt/atlassian/jira/lib/mysql-connector-java-5.1.48.jar
         ports: 
             - "80:8080"
         networks: 
@@ -22,7 +20,7 @@ services:
                 aliases: 
                     - jira-software
         depends_on: 
-            - mysql
+            - postgresql
             - confluence
     
     confluence:
@@ -30,13 +28,12 @@ services:
         restart: unless-stopped
         image: atlassian/confluence-server:6.6.3-alpine-adoptopenjdk8
         environment: 
-            - ATL_DB_TYPE=mysql
-            - ATL_JDBC_URL=jdbc:mysql://mysql:3306/confluence?useSSL=false
+            - ATL_DB_TYPE=postgresql
+            - ATL_JDBC_URL=jdbc:postgresql://postgresql:5432/confluence
             - ATL_JDBC_USER=${DB_USER}
             - ATL_JDBC_PASSWORD=${DB_PASSWORD}
         volumes: 
             - ./Volumes/confluence-server:/var/atlassian/application-data/confluence
-            - ./mysql-connector-java-5.1.48.jar:/opt/confluence/jira/lib/mysql-connector-java-5.1.48.jar
         ports:
             - "8090:8090"
             - "8091:8091"
@@ -45,25 +42,25 @@ services:
                 aliases: 
                     - confluence
         depends_on: 
-            - mysql
+            - postgresql
 
-    mysql:
-        container_name: mysql
+    postgresql:
+        container_name: postgresql
         restart: unless-stopped
-        image: mysql:5.7
-        command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci 
-        environment:
-            - MYSQL_USER=root
-            - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+        image: postgres:9.6.2
         ports:
-            - "3306:3306"
+            - "5432:5432"
         volumes: 
-            - ./Volumes/mysql:/var/lib/mysql
-            - ./create_database.sql:/docker-entrypoint-initdb.d/create_database.sql
+            - ./Volumes/postgresql:/var/lib/postgresql/data
+            - ./pg-init-script.sh:/docker-entrypoint-initdb.d/pg-init-script.sh
+        environment: 
+            - POSTGRES_USER=${DB_USER}
+            - POSTGRES_PASSWORD=${DB_PASSWORD}
+            - POSTGRES_MULTIPLE_DATABASES=jira,confluence
         networks: 
             jira-bundle:
                 aliases: 
-                    - mysql 
+                    - postgresql
 
 networks:
     jira-bundle:
