@@ -63,4 +63,4 @@ services:
             - "5432:5432"
         volumes: 
             - ./Volumes/postgresql:/var/lib/postgresql/data
-        network_mode: 
+        network_mode: host
