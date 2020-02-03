@@ -1,0 +1,66 @@
+version: '3'
+
+services: 
+    jira-software:
+        container_name: jira-core
+        image: atlassian/jira-software:8.4.0
+        restart: unless-stopped
+        env_file:
+            - ./env/jira.env
+        volumes:
+            - ./Volumes/jira-software:/var/atlassian/application-data/jira
+        ports: 
+            - "80:8080"
+        network_mode: host
+        depends_on: 
+            - postgresql
+            - confluence
+            # - bitbucket
+    
+    confluence:
+        container_name: confluence-server
+        image: atlassian/confluence-server:6.6.3-alpine-adoptopenjdk8
+        env_file: 
+
+            - ./env/confluence.env
+        volumes: 
+            - ./Volumes/confluence-server:/var/atlassian/application-data/confluence
+        ports:
+            - "8090:8090"
+            - "8091:8091"
+        network_mode: host
+        depends_on: 
+            - postgresql
+    
+    # bitbucket:
+    #     container_name: bitbucket-server
+    #     image: atlassian/bitbucket-server:5.16.11
+    #     volumes: 
+    #         - ./Volumes/bitbucket:/var/atlassian/application-data/bitbucket
+    #     env_file: 
+    #         - ./env/bitbucket.env
+    #     ports:
+    #         - "7990:7990"
+    #         - "7999:7999"
+    #     networks:
+    #         jira-bundle:
+    #             aliases: 
+    #                 - bitbucket
+    #     depends_on: 
+    #         - postgresql
+
+    postgresql:
+        container_name: postgresql-multi
+        restart: unless-stopped
+        image: postgres:9.6.2
+        volumes:
+            - ../jira-service-pack:/docker-entrypoint-initdb.d
+        environment:
+            - POSTGRES_MULTIPLE_DATABASES=jira,confluence
+            - POSTGRES_USER=${PG_USER}
+            - POSTGRES_PASSWORD=${PG_PASSWORD}
+        ports:
+            - "5432:5432"
+        volumes: 
+            - ./Volumes/postgresql:/var/lib/postgresql/data
+        network_mode: 
